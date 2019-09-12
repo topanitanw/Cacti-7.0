@@ -83,6 +83,7 @@ InputParameter::parse_cfg(const string & in_file)
   }
 
   while(fscanf(fp, "%[^\n]\n", line) != EOF) {
+    // printf("line: %s\n", line);
 
     if (!strncmp("-size", line, strlen("-size"))) {
       sscanf(line, "-size %[(:-~)*]%u", jk, &(cache_sz));
@@ -110,6 +111,7 @@ InputParameter::parse_cfg(const string & in_file)
 
     if (!strncmp("-block", line, strlen("-block"))) {
       sscanf(line, "-block size (bytes) %d", &(line_sz));
+      printf("line_sz: %d\n", line_sz);
       continue;
     }
 
@@ -1979,11 +1981,13 @@ bool InputParameter::error_checking()
 
   if (B < 1)
   {
+    cerr << "line_sz: " << line_sz << endl;
     cerr << "Block size must >= 1" << endl;
     return false;
   }
   else if (B*8 < out_w)
   {
+    // hack: panitanw
     cerr << "Block size must be at least " << out_w/8 << endl;
     return false;
   }
@@ -2046,7 +2050,8 @@ bool InputParameter::error_checking()
   if (C < 64 && !g_ip->is_3d_mem)
   {
     cerr << "Cache size must >=64" << endl;
-    return false;
+    // HACK: panitanw
+    //return false;
   }
 
 //TODO: revisit this
@@ -2099,7 +2104,8 @@ bool InputParameter::error_checking()
     if ((fully_assoc || pure_cam) && SCHP<1)
     {
 	  cerr << "CAM and fully associative must have at least 1 search port" << endl;
-	  return false;
+      // HACK: panitanw
+	  //return false;
     }
 
    if (RWP==0 && ERP==0 && SCHP>0 && ((fully_assoc || pure_cam)))
@@ -2131,8 +2137,9 @@ bool InputParameter::error_checking()
       A = assoc;
       if (is_pow2(A) == false)
       {
-        cerr << "Associativity must be a power of 2" << endl;
-        return false;
+        // hack: panitanw
+        // cerr << "Associativity must be a power of 2" << endl;
+        // return false;
       }
     }
   }
