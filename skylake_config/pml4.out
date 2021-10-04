@@ -1,0 +1,201 @@
+line_sz: 8
+Cache size                    : 16
+Block size                    : 8
+Associativity                 : 0
+Read only ports               : 0
+Write only ports              : 0
+Read write ports              : 1
+Single ended read ports       : 0
+Search ports                  : 1
+Cache banks (UCA)             : 1
+Technology                    : 0.022
+Temperature                   : 360
+Tag size                      : 42
+array type                    : Cache
+Model as memory               : 0
+Model as 3D memory       	 : 0
+Access mode                   : 0
+Data array cell type          : 0
+Data array peripheral type    : 0
+Tag array cell type           : 0
+Tag array peripheral type     : 0
+Optimization target           : 2
+Design objective (UCA wt)     : 0 0 0 100 0
+Design objective (UCA dev)    : 20 100000 100000 100000 100000
+Cache model                   : 0
+Nuca bank                     : 0
+Wire inside mat               : 1
+Wire outside mat              : 1
+Interconnect projection       : 1
+Wire signaling               : 1
+Print level                   : 1
+ECC overhead                  : 1
+Page size                     : 4096
+Burst length                  : 8
+Internal prefetch width       : 8
+Force cache config            : 0
+Subarray Driver direction       : 1
+iostate                       : WRITE
+dram_ecc                      : NO_ECC
+io_type                     : DDR3
+dram_dimm                      : UDIMM
+IO Area (sq.mm) = inf
+IO Timing Margin (ps) = -14.1667
+IO Votlage Margin (V) = 0.155
+IO Dynamic Power (mW) = 1506.36 PHY Power (mW) = 232.752 PHY Wakeup Time (us) = 27.503
+IO Termination and Bias Power (mW) = 2505.96
+
+---------- CACTI (version 7.0.3DD Prerelease of Aug, 2012), Uniform Cache Access SRAM Model ----------
+
+Cache Parameters:
+    Total cache size (bytes): 16
+    Number of banks: 1
+    Associativity: fully associative
+    Block size (bytes): 8
+    Read/write Ports: 1
+    Read ports: 0
+    Write ports: 0
+    search ports: 1
+    Technology size (nm): 22
+
+    Access time (ns): 0.152143
+    Cycle time (ns):  0.183966
+    Total dynamic associative search energy per access (nJ): 0.000668691
+    Total dynamic read energy per access (nJ): 0.00084443
+    Total dynamic write energy per access (nJ): 0.00083348
+    Total leakage power of a bank (mW): 0.162405
+    Total gate leakage power of a bank (mW): 0.000764688
+    Cache height x width (mm): 0.0205626 x 0.0722343
+
+    Best Ndwl : 1
+    Best Ndbl : 2
+    Best Nspd : 1
+    Best Ndcm : 1
+    Best Ndsam L1 : 1
+    Best Ndsam L2 : 1
+
+    Data array, H-tree wire type: Global wires with 30% delay penalty
+
+Time Components:
+
+  Data side (with Output driver) (ns): 0.152143
+	H-tree input delay (ns): 0
+	CAM search delay (ns): 0.127202
+	Bitline delay (ns): 0.00675403
+	Sense Amplifier delay (ns): 0.00189739
+	H-tree output delay (ns): 0.0181871
+
+
+Power Components:
+
+  Fully associative array:
+  Total dynamic associative search energy/access  (nJ): 0.000668691
+	Total energy in H-tree (that includes both match key and data transfer) (nJ): 0
+	Keyword input and result output Htrees inside bank Energy (nJ): 0
+	Searchlines (nJ): 9.74178e-05
+	Matchlines  (nJ): 6.10754e-05
+	Data portion wordline (nJ): 7.02425e-06
+	Data Bitlines (nJ): 4.09686e-05
+	Sense amplifier energy (nJ): 2.87046e-05
+	Sub-array output driver (nJ): 0.0004335
+
+  Total dynamic read energy/access  (nJ): 0.00084443
+	Total energy in H-tree (that includes both address and data transfer) (nJ): 0
+	Output Htree inside bank Energy (nJ): 0
+	Decoder (nJ): 1.30036e-05
+	Wordline (nJ): 0
+	Bitline mux & associated drivers (nJ): 0
+	Sense amp mux & associated drivers (nJ): 0
+	Bitlines (nJ): 4.82463e-05
+	Sense amplifier energy (nJ): 4.86384e-05
+	Sub-array output driver (nJ): 0.000734542
+
+  Total leakage power of a bank (mW): 0.162405
+
+
+Area Components:
+
+  Fully associative cache array: Area (mm2): 0.00148532
+	Height (mm): 0.0205626
+	Width (mm): 0.0722343
+	Area efficiency (Memory cell area/Total area) - 4.6433 %
+		MAT Height (mm): 0.0205626
+		MAT Length (mm): 0.0722343
+		Subarray Height (mm): 0.0012848
+		Subarray Length (mm): 0.035915
+
+Wire Properties:
+
+  Delay Optimal
+	Repeater size - 42.0297 
+	Repeater spacing - 0.0329013 (mm) 
+	Delay - 0.216837 (ns/mm) 
+	PowerD - 0.000279845 (nJ/mm) 
+	PowerL - 0.0215298 (mW/mm) 
+	PowerLgate - 9.15623e-05 (mW/mm)
+	Wire width - 0.022 microns
+	Wire spacing - 0.022 microns
+
+  5% Overhead
+	Repeater size - 17.0297 
+	Repeater spacing - 0.0329013 (mm) 
+	Delay - 0.226875 (ns/mm) 
+	PowerD - 0.0001818 (nJ/mm) 
+	PowerL - 0.00872349 (mW/mm) 
+	PowerLgate - 3.70994e-05 (mW/mm)
+	Wire width - 0.022 microns
+	Wire spacing - 0.022 microns
+
+  10% Overhead
+	Repeater size - 15.0297 
+	Repeater spacing - 0.0329013 (mm) 
+	Delay - 0.235988 (ns/mm) 
+	PowerD - 0.000174237 (nJ/mm) 
+	PowerL - 0.00769899 (mW/mm) 
+	PowerLgate - 3.27424e-05 (mW/mm)
+	Wire width - 0.022 microns
+	Wire spacing - 0.022 microns
+
+  20% Overhead
+	Repeater size - 12.0297 
+	Repeater spacing - 0.0329013 (mm) 
+	Delay - 0.257722 (ns/mm) 
+	PowerD - 0.00016297 (nJ/mm) 
+	PowerL - 0.00616223 (mW/mm) 
+	PowerLgate - 2.62069e-05 (mW/mm)
+	Wire width - 0.022 microns
+	Wire spacing - 0.022 microns
+
+  30% Overhead
+	Repeater size - 10.0297 
+	Repeater spacing - 0.0329013 (mm) 
+	Delay - 0.28134 (ns/mm) 
+	PowerD - 0.000155511 (nJ/mm) 
+	PowerL - 0.00513773 (mW/mm) 
+	PowerLgate - 2.18498e-05 (mW/mm)
+	Wire width - 0.022 microns
+	Wire spacing - 0.022 microns
+
+  Low-swing wire (1 mm) - Note: Unlike repeated wires, 
+	delay and power values of low-swing wires do not
+	have a linear relationship with length. 
+	delay - 0.0902442 (ns) 
+	powerD - 2.8399e-06 (nJ) 
+	PowerL - 1.71796e-07 (mW) 
+	PowerLgate - 1.29017e-09 (mW)
+	Wire width - 4.4e-08 microns
+	Wire spacing - 4.4e-08 microns
+
+
+top 3 best memory configurations are:
+Memory    cap: 80 GB num_bobs: 1 bw: 533 (MHz) cost: $731.2 energy: 32.6101 (nJ) 
+ {
+ (0)  BoB       cap: 80 GB num_channels: 1 bw: 533 (MHz) cost: $731.2 energy: 32.6101 (nJ) 
+    ==============
+    (0) cap: 80 GB bw: 533 (MHz) cost: $731.2 dpc: 3 energy: 32.6101 (nJ)  DIMM:  RDIMM  low power: F [ 0(4GB) 0(8GB) 1(16GB) 2(32GB) 0(64GB) ]
+    ==============
+
+ }
+
+=============================================
+
