@@ -1,6 +1,6 @@
 TAR = cacti
 
-.PHONY: dbg opt depend clean clean_dbg clean_opt
+.PHONY: dbg opt depend clean clean_dbg clean_opt parsing
 
 all: dbg
 
@@ -26,3 +26,5 @@ clean_opt: obj_opt
 	@$(MAKE) TAG=opt -C . -f $(TAR).mk clean
 	rm -rf $<
 
+parsing:
+	python cacti.py -i ./skylake_config/cache_l1.cfg.out
