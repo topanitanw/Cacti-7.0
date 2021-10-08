@@ -2,13 +2,13 @@ TAR = cacti
 
 .PHONY: dbg opt depend clean clean_dbg clean_opt parsing
 
-all: dbg
+all: opt
 
 dbg: $(TAR).mk obj_dbg
 	@$(MAKE) TAG=dbg -C . -f $(TAR).mk
 
 opt: $(TAR).mk obj_opt
-	@$(MAKE) TAG=opt -C . -f $(TAR).mk
+	@$(MAKE) TAG=opt -C . -f $(TAR).mk NTHREADS=1
 
 obj_dbg:
 	mkdir -p $@
