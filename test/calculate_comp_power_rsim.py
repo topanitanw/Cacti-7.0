@@ -100,12 +100,21 @@ def create_config_and_run(power_df, comp, core_counts):
         core_counts,
     )
 
-    comp_config_filename = get_config_filename(comp.comp, comp.level, comp.slice_size)
+    fmg.mkdir("./configs")
+    comp_config_filename = get_config_filename(comp.comp, comp.level,
+                                               comp.slice_size)
     comp_config_path = os.path.join("configs", comp_config_filename)
+    comp_cacti_config = cacti_config.CactiConfig(
+        comp.comp,
+        comp.level,
+        comp.size_byte,
+        comp.assoc,
+        core_counts,
+    )
     comp_cacti_config.write_config(comp_config_path)
-    comp_cacti_config.run(comp_config)
+    comp_cacti_config.run(comp_config_path)
 
-    comp_cacti_output_filename = comp_config + ".out"
+    comp_cacti_output_filename = comp_config_path + ".out"
     log.info("reading: %s", comp_cacti_output_filename)
     comp_cacti_output = cacti_output.CactiOutput(comp_cacti_output_filename)
 
