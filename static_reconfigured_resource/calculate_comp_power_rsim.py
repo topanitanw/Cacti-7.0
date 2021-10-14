@@ -103,7 +103,8 @@ def create_config_and_run(power_df, comp, core_counts):
     fmg.mkdir("./configs")
     comp_config_filename = get_config_filename(comp.comp, comp.level,
                                                comp.slice_size)
-    comp_config_path = os.path.join("configs", comp_config_filename)
+    comp_config_path = os.path.join(".", "configs", comp_config_filename)
+    comp_config_path = os.path.abspath(comp_config_path)
     comp_cacti_config = cacti_config.CactiConfig(
         comp.comp,
         comp.level,

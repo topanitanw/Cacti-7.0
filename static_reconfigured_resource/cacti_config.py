@@ -298,7 +298,7 @@ class CactiConfig:
     def run(self, config_path):
         # get the rat root
         proj_root = get_proj_root("..")
-        bin_path = os.path.join("cacti")
-        cmd = f"cd ..; ./{bin_path} -infile ./test/{config_path} > /dev/null;"
+        bin_path = "cacti"
+        cmd = f"cd ..; ./{bin_path} -infile {config_path} > /dev/null;"
         log.info("running %s", cmd)
         subprocess.run(cmd, shell=True)
