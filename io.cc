@@ -2138,8 +2138,8 @@ bool InputParameter::error_checking()
       if (is_pow2(A) == false)
       {
         // hack: panitanw
-        // cerr << "Associativity must be a power of 2" << endl;
-        // return false;
+        cerr << "Associativity must be a power of 2" << endl;
+        return false;
       }
     }
   }
