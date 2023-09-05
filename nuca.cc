@@ -232,6 +232,7 @@ Nuca::sim_nuca()
     iterations = bank_start+1;
     g_ip->cache_sz = g_ip->cache_sz/g_ip->nuca_bank_count;
   }
+  cout << std::endl << std::endl;
   cout << "Simulating various NUCA configurations\n";
   for (it=bank_start; it<iterations; it++) { /* different bank count values */
     ures.tag_array2 = &tag;
@@ -242,7 +243,7 @@ Nuca::sim_nuca()
     solve(&ures);
 //    output_UCA(&ures);
     bank_count = g_ip->nuca_cache_sz/g_ip->cache_sz;
-    cout << "====" <<  g_ip->cache_sz << "\n";
+    // cout << "====" <<  g_ip->cache_sz << "\n";
 
     for (wr=wt_min; wr<=wt_max; wr++) {
 
@@ -503,8 +504,8 @@ Nuca::find_optimal_nuca (list<nuca_org_t *> *n, min_values_t *minval)
 
 
   for (niter = n->begin(); niter != n->end(); niter++) {
-    fprintf(stderr, "\n-----------------------------"
-        "---------------\n");
+    // fprintf(stderr, "\n-----------------------------"
+    //     "---------------\n");
 
 
     printf("NUCA___stats %d \tbankcount: lat = %g \tdynP = %g \twt = %d\t "
