@@ -2138,8 +2138,9 @@ bool InputParameter::error_checking()
       if (is_pow2(A) == false)
       {
         // hack: panitanw
-        cerr << "Associativity must be a power of 2" << endl;
-        return false;
+        cerr << "WARNING: Associativity must be a power of 2, but I hack it so that cacti can continue running." << endl;
+        cerr << "file: " << __FILE__ << " func: " << __func__ << " line: " << __LINE__ << endl;
+        // return false;
       }
     }
   }
