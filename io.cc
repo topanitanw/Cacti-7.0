@@ -243,6 +243,8 @@ InputParameter::parse_cfg(const string & in_file)
 
     if (!strncmp("-system frequency", line, strlen("-system frequency"))) {
       sscanf(line, "-system frequency %[(:-~)*]%u", jk, &(sys_freq_MHz));
+      printf("system frequency (MHz): %d\n", sys_freq_MHz);
+
       if(g_ip->print_detail_debug)
     	  cout << "system frequency: " << g_ip->sys_freq_MHz  << endl;
       continue;
@@ -2138,7 +2140,7 @@ bool InputParameter::error_checking()
       if (is_pow2(A) == false)
       {
         // hack: panitanw
-        cerr << "WARNING: Associativity must be a power of 2, but I hack it so that cacti can continue running." << endl;
+        cerr << "WARNING: Associativity must be a power of 2, but A = " << A << " I hack it so that cacti can continue running." << endl;
         cerr << "file: " << __FILE__ << " func: " << __func__ << " line: " << __LINE__ << endl;
         // return false;
       }
