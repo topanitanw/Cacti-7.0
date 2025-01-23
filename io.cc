@@ -3208,6 +3208,7 @@ void output_UCA(uca_org_t *fr)
 
     if (!(g_ip->pure_cam || g_ip->fully_assoc))
     {
+        // panitan data array power stats hacked
     	cout << "  Data array: Total dynamic read energy/access  (nJ): " <<
     	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
     	cout << "  Data array: Total dynamic write energy/access  (nJ): " <<
