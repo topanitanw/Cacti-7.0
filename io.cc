@@ -2891,9 +2891,9 @@ void output_UCA(uca_org_t *fr)
 //	  else
 //	  {
 		  cout << "    Total dynamic read energy per access (nJ): " <<
-		  fr->power.readOp.dynamic*1e9 << endl;
+		    fr->power.readOp.dynamic*1e9 << endl;
 		  cout << "    Total dynamic write energy per access (nJ): " <<
-		  fr->power.writeOp.dynamic*1e9 << endl;
+		    fr->power.writeOp.dynamic*1e9 << endl;
 //	  }
 	  cout << "    Total leakage power of a bank"
 	  " (mW): " << fr->power.readOp.leakage*1e3 << endl;
@@ -3210,6 +3210,8 @@ void output_UCA(uca_org_t *fr)
     {
     	cout << "  Data array: Total dynamic read energy/access  (nJ): " <<
     	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
+    	cout << "  Data array: Total dynamic write energy/access  (nJ): " <<
+    	      fr->data_array2->power.writeOp.dynamic * 1e9 << endl;
 
     	cout << "\tTotal energy in H-tree (that includes both "
     	      "address and data transfer) (nJ): " <<
@@ -3291,8 +3293,13 @@ void output_UCA(uca_org_t *fr)
     	          	   fr->data_array2->power_output_drivers_at_subarray.searchOp.dynamic * 1e9 << endl;
 
 
+                // panitan data array dynamic energy read write
             	cout <<endl<< "  Total dynamic read energy/access  (nJ): " <<
             	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
+
+            	cout << "  Total dynamic write energy/access  (nJ): " <<
+            	      fr->data_array2->power.writeOp.dynamic * 1e9 << endl;
+
     	        cout << "\tTotal energy in H-tree (that includes both "
     	            	      "address and data transfer) (nJ): " <<
     	              (fr->data_array2->power_addr_input_htree.readOp.dynamic +
@@ -3397,8 +3404,12 @@ void output_UCA(uca_org_t *fr)
 
     if ((!(g_ip->pure_ram|| g_ip->pure_cam || g_ip->fully_assoc)) && !g_ip->is_main_mem)
     {
+      // panitan tag array dynamic energy read write
       cout << endl << "  Tag array:  Total dynamic read energy/access (nJ): " <<
         fr->tag_array2->power.readOp.dynamic * 1e9 << endl;
+      cout << "  Tag array:  Total dynamic write energy/access (nJ): " <<
+        fr->tag_array2->power.writeOp.dynamic * 1e9 << endl;
+
       cout << "\tTotal leakage read/write power of a bank (mW): " <<
           fr->tag_array2->power.readOp.leakage * 1e3 << endl;
       cout << "\tTotal energy in H-tree (that includes both "
