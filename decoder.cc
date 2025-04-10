@@ -240,6 +240,7 @@ double Decoder::compute_delays(double inrisetime)
     {
       Vpp = g_tp.peri_global.Vdd;
     }
+    // std::cerr << "sram_cell.Vdd: " << g_tp.sram_cell.Vdd << std::endl;
 
     // first check whether a decoder is required at all
     rd = tr_R_on(w_dec_n[0], NCH, num_in_signals, is_dram, false, is_wl_tr);

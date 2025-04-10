@@ -3209,9 +3209,10 @@ void output_UCA(uca_org_t *fr)
     if (!(g_ip->pure_cam || g_ip->fully_assoc))
     {
         // panitan data array power stats hacked
-    	cout << "  Data array: Total dynamic read energy/access  (nJ): " <<
+    	cout << "  Data array:" << endl; 
+        cout << "\tTotal dynamic read energy/access  (nJ): " <<
     	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
-    	cout << "  Data array: Total dynamic write energy/access  (nJ): " <<
+        cout << "\tTotal dynamic write energy/access  (nJ): " <<
     	      fr->data_array2->power.writeOp.dynamic * 1e9 << endl;
 
     	cout << "\tTotal energy in H-tree (that includes both "
@@ -3406,9 +3407,10 @@ void output_UCA(uca_org_t *fr)
     if ((!(g_ip->pure_ram|| g_ip->pure_cam || g_ip->fully_assoc)) && !g_ip->is_main_mem)
     {
       // panitan tag array dynamic energy read write
-      cout << endl << "  Tag array:  Total dynamic read energy/access (nJ): " <<
+      cout << endl << "  Tag array:" << endl;  
+      cout << "\tTotal dynamic read energy/access (nJ): " <<
         fr->tag_array2->power.readOp.dynamic * 1e9 << endl;
-      cout << "  Tag array:  Total dynamic write energy/access (nJ): " <<
+      cout << "\tTotal dynamic write energy/access (nJ): " <<
         fr->tag_array2->power.writeOp.dynamic * 1e9 << endl;
 
       cout << "\tTotal leakage read/write power of a bank (mW): " <<
