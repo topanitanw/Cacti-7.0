@@ -142,7 +142,7 @@ Wire::calculate_wire_stats()
   if (wt != Low_swing) {
 
 	  //    delay_optimal_wire();
-	  
+
 	  if (wt == Global) {
 		  delay = global.delay * wire_length;
 		  power.readOp.dynamic = global.power.readOp.dynamic * wire_length;
@@ -764,67 +764,87 @@ powerDef Wire::wire_model (double space, double size, double *delay)
   return ptemp;
 }
 
+void print_out_wire(std::string header, Component &wire_comp, double wire_width, double wire_spacing) {
+  cout << "  " << header << ":" << endl;
+  cout <<  "\tRepeater size (mm) :  " << wire_comp.area.h <<
+    " \n\tRepeater spacing (mm) :  " << wire_comp.area.w*1e3 <<
+    " \n\tDelay (ns/mm):  " << wire_comp.delay*1e6 <<
+    " \n\tPowerD (nJ/mm):  " << wire_comp.power.readOp.dynamic *1e6<<
+    " \n\tPowerL (mW/mm):  " << wire_comp.power.readOp.leakage <<
+    " \n\tPowerLgate (mW/mm) :  " << wire_comp.power.readOp.gate_leakage << "\n";
+  cout << "\tWire width (um):  " <<wire_width*1e6 << "\n";
+  cout << "\tWire spacing (um):  " <<wire_spacing*1e6 << "\n";
+  cout <<endl;
+}
+
 void
 Wire::print_wire()
 {
 
   cout << "\nWire Properties:\n\n";
-  cout << "  Delay Optimal\n\tRepeater size - "<< global.area.h <<
-    " \n\tRepeater spacing - " << global.area.w*1e3 << " (mm)"
-    " \n\tDelay - " << global.delay*1e6 <<  " (ns/mm)"
-    " \n\tPowerD - " << global.power.readOp.dynamic *1e6<< " (nJ/mm)"
-    " \n\tPowerL - " << global.power.readOp.leakage << " (mW/mm)"
-    " \n\tPowerLgate - " << global.power.readOp.gate_leakage << " (mW/mm)\n";
-  cout << "\tWire width - " <<wire_width_init*1e6 << " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init*1e6 << " microns\n";
-  cout <<endl;
+  print_out_wire("Delay Optimal", global, wire_width_init, wire_spacing_init);
+  print_out_wire("5% Overhead", global_5, wire_width_init, wire_spacing_init);
+  print_out_wire("10% Overhead", global_10, wire_width_init, wire_spacing_init);
+  print_out_wire("20% Overhead", global_20, wire_width_init, wire_spacing_init);
+  print_out_wire("30% Overhead", global_30, wire_width_init, wire_spacing_init);
+  cout << "#Note: Unlike repeated wires, delay and power values of low-swing wires do not have a linear relationship with length." << endl;
+  print_out_wire("Low-swing wire (1 mm)", low_swing, wire_width_init * 2, wire_spacing_init * 2);
+  // cout << "  Delay Optimal:\n\tRepeater size :  "<< global.area.h <<
+  //   " \n\tRepeater spacing (mm) :  " << global.area.w*1e3 <<
+  //   " \n\tDelay (ns/mm):  " << global.delay*1e6 <<
+  //   " \n\tPowerD (nJ/mm):  " << global.power.readOp.dynamic *1e6<<
+  //   " \n\tPowerL (mW/mm)":  " << global.power.readOp.leakage <<
+  //   " \n\tPowerLgate (mW/mm) :  " << global.power.readOp.gate_leakage << "\n";
+  // cout << "\tWire width (um):  " <<wire_width_init*1e6 << "\n";
+  // cout << "\tWire spacing (um):  " <<wire_spacing_init*1e6 << "\n";
+  // cout <<endl;
+  //
+  // cout << "  5% Overhead\n\tRepeater size :  "<< global_5.area.h <<
+  //   " \n\tRepeater spacing :  " << global_5.area.w*1e3 << " (mm)"
+  //   " \n\tDelay :  " << global_5.delay *1e6<<  " (ns/mm)"
+  //   " \n\tPowerD :  " << global_5.power.readOp.dynamic *1e6<< " (nJ/mm)"
+  //   " \n\tPowerL :  " << global_5.power.readOp.leakage << " (mW/mm)"
+  //   " \n\tPowerLgate :  " << global_5.power.readOp.gate_leakage << " (mW/mm)\n";
+  // cout << "\tWire width :  " <<wire_width_init*1e6 << " microns\n";
+  // cout << "\tWire spacing :  " <<wire_spacing_init*1e6 << " microns\n";
+  // cout <<endl;
 
-  cout << "  5% Overhead\n\tRepeater size - "<< global_5.area.h <<
-    " \n\tRepeater spacing - " << global_5.area.w*1e3 << " (mm)"
-    " \n\tDelay - " << global_5.delay *1e6<<  " (ns/mm)"
-    " \n\tPowerD - " << global_5.power.readOp.dynamic *1e6<< " (nJ/mm)"
-    " \n\tPowerL - " << global_5.power.readOp.leakage << " (mW/mm)"
-    " \n\tPowerLgate - " << global_5.power.readOp.gate_leakage << " (mW/mm)\n";
-  cout << "\tWire width - " <<wire_width_init*1e6 << " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init*1e6 << " microns\n";
-  cout <<endl;
-  cout << "  10% Overhead\n\tRepeater size - "<< global_10.area.h <<
-    " \n\tRepeater spacing - " << global_10.area.w*1e3 << " (mm)"
-    " \n\tDelay - " << global_10.delay *1e6<<  " (ns/mm)"
-    " \n\tPowerD - " << global_10.power.readOp.dynamic *1e6<< " (nJ/mm)"
-    " \n\tPowerL - " << global_10.power.readOp.leakage << " (mW/mm)"
-    " \n\tPowerLgate - " << global_10.power.readOp.gate_leakage << " (mW/mm)\n";
-  cout << "\tWire width - " <<wire_width_init*1e6 << " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init*1e6 << " microns\n";
-  cout <<endl;
-  cout << "  20% Overhead\n\tRepeater size - "<< global_20.area.h <<
-    " \n\tRepeater spacing - " << global_20.area.w*1e3 << " (mm)"
-    " \n\tDelay - " << global_20.delay *1e6<<  " (ns/mm)"
-    " \n\tPowerD - " << global_20.power.readOp.dynamic *1e6<< " (nJ/mm)"
-    " \n\tPowerL - " << global_20.power.readOp.leakage << " (mW/mm)"
-    " \n\tPowerLgate - " << global_20.power.readOp.gate_leakage << " (mW/mm)\n";
-  cout << "\tWire width - " <<wire_width_init*1e6 << " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init*1e6 << " microns\n";
-  cout <<endl;
-  cout << "  30% Overhead\n\tRepeater size - "<< global_30.area.h <<
-    " \n\tRepeater spacing - " << global_30.area.w*1e3 << " (mm)"
-    " \n\tDelay - " << global_30.delay *1e6<<  " (ns/mm)"
-    " \n\tPowerD - " << global_30.power.readOp.dynamic *1e6<< " (nJ/mm)"
-    " \n\tPowerL - " << global_30.power.readOp.leakage << " (mW/mm)"
-    " \n\tPowerLgate - " << global_30.power.readOp.gate_leakage << " (mW/mm)\n";
-  cout << "\tWire width - " <<wire_width_init*1e6 << " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init*1e6 << " microns\n";
-  cout <<endl;
-  cout << "  Low-swing wire (1 mm) - Note: Unlike repeated wires, \n\tdelay and power "
-            "values of low-swing wires do not\n\thave a linear relationship with length." <<
-      " \n\tdelay - " << low_swing.delay *1e9<<  " (ns)"
-      " \n\tpowerD - " << low_swing.power.readOp.dynamic *1e9<< " (nJ)"
-      " \n\tPowerL - " << low_swing.power.readOp.leakage << " (mW)"
-      " \n\tPowerLgate - " << low_swing.power.readOp.gate_leakage << " (mW)\n";
-  cout << "\tWire width - " <<wire_width_init * 2 /* differential */<< " microns\n";
-  cout << "\tWire spacing - " <<wire_spacing_init * 2 /* differential */<< " microns\n";
-  cout <<endl;
-  cout <<endl;
-
+  // cout << "  10% Overhead\n\tRepeater size :  "<< global_10.area.h <<
+  //   " \n\tRepeater spacing :  " << global_10.area.w*1e3 << " (mm)"
+  //   " \n\tDelay :  " << global_10.delay *1e6<<  " (ns/mm)"
+  //   " \n\tPowerD :  " << global_10.power.readOp.dynamic *1e6<< " (nJ/mm)"
+  //   " \n\tPowerL :  " << global_10.power.readOp.leakage << " (mW/mm)"
+  //   " \n\tPowerLgate :  " << global_10.power.readOp.gate_leakage << " (mW/mm)\n";
+  // cout << "\tWire width :  " <<wire_width_init*1e6 << " microns\n";
+  // cout << "\tWire spacing :  " <<wire_spacing_init*1e6 << " microns\n";
+  // cout <<endl;
+  // cout << "  20% Overhead\n\tRepeater size :  "<< global_20.area.h <<
+  //   " \n\tRepeater spacing :  " << global_20.area.w*1e3 << " (mm)"
+  //   " \n\tDelay :  " << global_20.delay *1e6<<  " (ns/mm)"
+  //   " \n\tPowerD :  " << global_20.power.readOp.dynamic *1e6<< " (nJ/mm)"
+  //   " \n\tPowerL :  " << global_20.power.readOp.leakage << " (mW/mm)"
+  //   " \n\tPowerLgate :  " << global_20.power.readOp.gate_leakage << " (mW/mm)\n";
+  // cout << "\tWire width :  " <<wire_width_init*1e6 << " microns\n";
+  // cout << "\tWire spacing :  " <<wire_spacing_init*1e6 << " microns\n";
+  // cout <<endl;
+  // cout << "  30% Overhead\n\tRepeater size :  "<< global_30.area.h <<
+  //   " \n\tRepeater spacing :  " << global_30.area.w*1e3 << " (mm)"
+  //   " \n\tDelay :  " << global_30.delay *1e6<<  " (ns/mm)"
+  //   " \n\tPowerD :  " << global_30.power.readOp.dynamic *1e6<< " (nJ/mm)"
+  //   " \n\tPowerL :  " << global_30.power.readOp.leakage << " (mW/mm)"
+  //   " \n\tPowerLgate :  " << global_30.power.readOp.gate_leakage << " (mW/mm)\n";
+  // cout << "\tWire width :  " <<wire_width_init*1e6 << " microns\n";
+  // cout << "\tWire spacing :  " <<wire_spacing_init*1e6 << " microns\n";
+  // cout <<endl;
+  // cout << "  Low-swing wire (1 mm): " << endl;
+  //     " \n\tDelay :  " << low_swing.delay *1e9<<  " (ns)"
+  //     " \n\tpowerD :  " << low_swing.power.readOp.dynamic *1e9<< " (nJ)"
+  //     " \n\tPowerL :  " << low_swing.power.readOp.leakage << " (mW)"
+  //     " \n\tPowerLgate :  " << low_swing.power.readOp.gate_leakage << " (mW)\n";
+  // cout << "\tWire width :  " <<wire_width_init * 2 /* differential */<< " microns\n";
+  // cout << "\tWire spacing :  " <<wire_spacing_init * 2 /* differential */<< " microns\n";
+  // cout <<endl;
+  // cout <<endl;
+  //
 }
 

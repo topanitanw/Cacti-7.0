@@ -257,7 +257,7 @@ int main(int argc,char *argv[])
 			  atoi(argv[63]));
   }
 
-  cout << "=============================================\n\n";
+  // cout << "=============================================\n\n";
  // print_g_tp(); //function to test technology paramters.
 //  g_tp.display();
   result.cleanup();

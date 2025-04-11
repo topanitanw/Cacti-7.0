@@ -2743,7 +2743,7 @@ void output_UCA(uca_org_t *fr)
 	if(g_ip->is_3d_mem)
 	{
 
-		cout<<"-------  CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
+		cout<<"#-------  CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
 								<< " of " << VER_UPDATE_CACTI << ") 3D DRAM Main Memory  -------"<<endl;
 
 		cout << "\nMemory Parameters:\n";
@@ -2820,17 +2820,17 @@ void output_UCA(uca_org_t *fr)
   }
   else {
     if (g_ip->data_arr_ram_cell_tech_type == 3) {
-      cout << "\n---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
+      cout << "\n#---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
 								<< " of " << VER_UPDATE_CACTI << "), Uniform Cache Access " <<
         "Logic Process Based DRAM Model ----------\n";
     }
     else if (g_ip->data_arr_ram_cell_tech_type == 4) {
-      cout << "\n---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
+      cout << "\n#---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
 								<< " of " << VER_UPDATE_CACTI << "), Uniform" <<
         "Cache Access Commodity DRAM Model ----------\n";
     }
     else {
-      cout << "\n---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
+      cout << "\n#---------- CACTI (version "<< VER_MAJOR_CACTI <<"."<< VER_MINOR_CACTI<<"."VER_COMMENT_CACTI
 								<< " of " << VER_UPDATE_CACTI << "), Uniform Cache Access "
         "SRAM Model ----------\n";
     }
@@ -3141,18 +3141,19 @@ void output_UCA(uca_org_t *fr)
 
     /* Delay stats */
     /* data array stats */
-    cout << endl << "Time Components:" << endl << endl;
+    cout << endl << "Time Components:" << endl;
 
-    cout << "  Data side (with Output driver) (ns): " <<
+    cout << "  Data side: " << endl;
+    cout << "\tAccess time (with Output driver) (ns): " <<
       fr->data_array2->access_time/1e-9 << endl;
 
-    cout <<  "\tH-tree input delay (ns): " <<
-      fr->data_array2->delay_route_to_bank * 1e9 +
-      fr->data_array2->delay_input_htree * 1e9 << endl;
+    // cout <<  "\tH-tree input delay (ns): " <<
+    //   fr->data_array2->delay_route_to_bank * 1e9 +
+    //   fr->data_array2->delay_input_htree * 1e9 << endl;
 
     if (!(g_ip->pure_cam || g_ip->fully_assoc))
     {
-      cout <<  "\tDecoder + wordline delay (ns): " <<
+      cout <<  "\tDecoder_+_wordline delay_(ns): " <<
         fr->data_array2->delay_row_predecode_driver_and_block * 1e9 +
         fr->data_array2->delay_row_decoder * 1e9 << endl;
     }
@@ -3176,12 +3177,13 @@ void output_UCA(uca_org_t *fr)
     if ((!(g_ip->pure_ram|| g_ip->pure_cam || g_ip->fully_assoc)) && !g_ip->is_main_mem)
     {
       /* tag array stats */
-      cout << endl << "  Tag side (with Output driver) (ns): " <<
+      cout << endl << "  Tag side: " << endl; 
+      cout << "\tAccess time (with Output driver) (ns): " <<
         fr->tag_array2->access_time/1e-9 << endl;
 
-      cout <<  "\tH-tree input delay (ns): " <<
-        fr->tag_array2->delay_route_to_bank * 1e9 +
-        fr->tag_array2->delay_input_htree * 1e9 << endl;
+      // cout <<  "\tH-tree input delay (ns): " <<
+      //   fr->tag_array2->delay_route_to_bank * 1e9 +
+      //   fr->tag_array2->delay_input_htree * 1e9 << endl;
 
       cout <<  "\tDecoder + wordline delay (ns): " <<
         fr->tag_array2->delay_row_predecode_driver_and_block * 1e9 +
@@ -3469,50 +3471,53 @@ void output_UCA(uca_org_t *fr)
     	         fr->tag_array2->power_routing_to_bank.readOp.gate_leakage) * 1e3 << endl;
     }
 
-    cout << endl << endl <<  "Area Components:" << endl << endl;
+    cout << endl << endl <<  "Area Components:" << endl;
     /* Data array area stats */
-    if (!(g_ip->pure_cam || g_ip->fully_assoc))
-    	cout <<  "  Data array: Area (mm2): " << fr->data_array2->area * 1e-6 << endl;
-    else if (g_ip->pure_cam)
-    	cout <<  "  CAM array: Area (mm2): " << fr->data_array2->area * 1e-6 << endl;
-    else
-    	cout <<  "  Fully associative cache array: Area (mm2): " << fr->data_array2->area * 1e-6 << endl;
-    cout <<  "\tHeight (mm): " <<
-      fr->data_array2->all_banks_height*1e-3 << endl;
-    cout <<  "\tWidth (mm): " <<
-      fr->data_array2->all_banks_width*1e-3 << endl;
+    if (!(g_ip->pure_cam || g_ip->fully_assoc)) {
+    	cout <<  "  Data array: " << endl;
+        cout << "\tArea (mm2): " << fr->data_array2->area * 1e-6 << endl;
+    } else if (g_ip->pure_cam) {
+    	cout <<  "  CAM array: " << endl;
+        cout << "\tArea (mm2): " << fr->data_array2->area * 1e-6 << endl;
+    } else {
+    	cout <<  "  Fully associative cache array: " << endl;
+        cout << "\tArea (mm2): " << fr->data_array2->area * 1e-6 << endl;
+    }
+    cout <<  "\tHeight (mm): " << fr->data_array2->all_banks_height*1e-3 << endl;
+    cout <<  "\tWidth (mm): " << fr->data_array2->all_banks_width*1e-3 << endl;
     if (g_ip->print_detail) {
-      cout <<  "\tArea efficiency (Memory cell area/Total area) - " <<
-        fr->data_array2->area_efficiency << " %" << endl;
-      cout << "\t\tMAT Height (mm): " <<
+      cout <<  "\tArea efficiency (Memory cell area/Total area) %: " <<
+        fr->data_array2->area_efficiency << endl;
+      cout << "\tMAT Height (mm): " <<
         fr->data_array2->mat_height*1e-3 << endl;
-      cout << "\t\tMAT Length (mm): " <<
+      cout << "\tMAT Length (mm): " <<
         fr->data_array2->mat_length*1e-3 << endl;
-      cout << "\t\tSubarray Height (mm): " <<
+      cout << "\tSubarray Height (mm): " <<
         fr->data_array2->subarray_height*1e-3 << endl;
-      cout << "\t\tSubarray Length (mm): " <<
+      cout << "\tSubarray Length (mm): " <<
         fr->data_array2->subarray_length*1e-3 << endl;
     }
 
     /* Tag array area stats */
     if ((!(g_ip->pure_ram|| g_ip->pure_cam || g_ip->fully_assoc)) && !g_ip->is_main_mem)
     {
-      cout << endl << "  Tag array: Area (mm2): " << fr->tag_array2->area * 1e-6 << endl;
+      cout << endl << "  Tag array: " << endl; 
+      cout << "\tArea (mm2): " << fr->tag_array2->area * 1e-6 << endl;
       cout <<  "\tHeight (mm): " <<
         fr->tag_array2->all_banks_height*1e-3 << endl;
       cout <<  "\tWidth (mm): " <<
         fr->tag_array2->all_banks_width*1e-3 << endl;
       if (g_ip->print_detail)
       {
-        cout <<  "\tArea efficiency (Memory cell area/Total area) - " <<
-          fr->tag_array2->area_efficiency << " %" << endl;
-      cout << "\t\tMAT Height (mm): " <<
+        cout <<  "\tArea efficiency (Memory cell area/Total area) %: " <<
+          fr->tag_array2->area_efficiency << endl;
+      cout << "\tMAT Height (mm): " <<
         fr->tag_array2->mat_height*1e-3 << endl;
-      cout << "\t\tMAT Length (mm): " <<
+      cout << "\tMAT Length (mm): " <<
         fr->tag_array2->mat_length*1e-3 << endl;
-      cout << "\t\tSubarray Height (mm): " <<
+      cout << "\tSubarray Height (mm): " <<
         fr->tag_array2->subarray_height*1e-3 << endl;
-      cout << "\t\tSubarray Length (mm): " <<
+      cout << "\tSubarray Length (mm): " <<
         fr->tag_array2->subarray_length*1e-3 << endl;
       }
     }

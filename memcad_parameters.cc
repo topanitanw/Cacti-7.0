@@ -13,43 +13,43 @@ MemCadParameters::MemCadParameters(InputParameter * g_ip)
 	first_metric=Cost;
 	second_metric=Bandwidth;
 	third_metric=Energy;
-	dimm_model=ALL; 
+	dimm_model=ALL;
 	low_power_permitted=false;
 	load=0.9; // between 0 to 1
-	row_buffer_hit_rate=1; 
+	row_buffer_hit_rate=1;
 	rd_2_wr_ratio=2;
 	same_bw_in_bob=true; // true if all the channels in the bob have the same bandwidth
 	mirror_in_bob=true;// true if all the channels in the bob have the same configs
-	total_power=false; // false means just considering I/O Power. 
+	total_power=false; // false means just considering I/O Power.
 	verbose=false;
 	// values for input
-	io_type=g_ip->io_type; 
-	capacity=g_ip->capacity; 
-	num_bobs=g_ip->num_bobs; 
-	num_channels_per_bob=g_ip->num_channels_per_bob; 
+	io_type=g_ip->io_type;
+	capacity=g_ip->capacity;
+	num_bobs=g_ip->num_bobs;
+	num_channels_per_bob=g_ip->num_channels_per_bob;
 	first_metric=g_ip->first_metric;
 	second_metric=g_ip->second_metric;
 	third_metric=g_ip->third_metric;
-	dimm_model=g_ip->dimm_model; 
+	dimm_model=g_ip->dimm_model;
 	///low_power_permitted=g_ip->low_power_permitted;
-	///load=g_ip->load; 
-	///row_buffer_hit_rate=g_ip->row_buffer_hit_rate; 
+	///load=g_ip->load;
+	///row_buffer_hit_rate=g_ip->row_buffer_hit_rate;
 	///rd_2_wr_ratio=g_ip->rd_2_wr_ratio;
-	///same_bw_in_bob=g_ip->same_bw_in_bob; 
+	///same_bw_in_bob=g_ip->same_bw_in_bob;
 	mirror_in_bob=g_ip->mirror_in_bob;
-	///total_power=g_ip->total_power; 
+	///total_power=g_ip->total_power;
 	verbose=g_ip->verbose;
-	
+
 }
-	
+
 void MemCadParameters::print_inputs()
 {
-	
+
 }
 
 bool MemCadParameters::sanity_check()
 {
-	
+
 	return true;
 }
 
@@ -140,7 +140,7 @@ double MemoryParameters::io_energy_read[2][3][3][4] =// [ddr3:ddr4][udimm:rdimm:
 			{5708.689,	7065.038,	7808.678,	10627.674}
 
 		}
-		
+
 	},
 	{ //ddr
 		{//udimm
@@ -161,7 +161,7 @@ double MemoryParameters::io_energy_read[2][3][3][4] =// [ddr3:ddr4][udimm:rdimm:
 			{4603.279,	5381.605,	5740.325,	6401.926}
 
 		}
-		
+
 	}
 };
 
@@ -186,7 +186,7 @@ double MemoryParameters::io_energy_write[2][3][3][4] =
 			{5747.402,	6998.018,	8230.168,	10786.464}
 
 		}
-		
+
 	},
 	{ //ddr4
 		{//udimm
@@ -207,7 +207,7 @@ double MemoryParameters::io_energy_write[2][3][3][4] =
 			{5298.373,	5994.07,	6491.054,	7594.726}
 
 		}
-		
+
 	}
 };
 
@@ -271,7 +271,7 @@ int bw_index(Mem_IO_type type, int bandwidth)
 			return 3;
 	}
 	return 0;
-} 
+}
 
 channel_conf::channel_conf(MemCadParameters * memcad_params, const vector<int>& dimm_cap, int bandwidth, Mem_DIMM type, bool low_power)
 :memcad_params(memcad_params),type(type),low_power(low_power),bandwidth(bandwidth),latency(0),valid(true)
@@ -287,52 +287,52 @@ channel_conf::channel_conf(MemCadParameters * memcad_params, const vector<int>& 
 	{
 		if(dimm_cap[i]==0)
 			continue;
-			
+
 		int index =(int)(log2(dimm_cap[i]+0.1))-2;
 		assert(index<5);
 		histogram_capacity[index]++;
 		num_dimm_per_channel++;
 		capacity += dimm_cap[i];
 	}
-	
+
 	// updating bandwidth
 	if(capacity>0)
 		bandwidth =0;
-	
+
 		//bandwidth = MemoryParameters::bandwidth_load[memcad_params->io_type][4-num_dimm_per_channel];
 	// updating channel cost
 	cost =0;
 	for(int i=0;i<5;++i)
 		cost += histogram_capacity[i] * MemoryParameters::cost[memcad_params->io_type][type][i];
-	
+
 	// update energy
 	calc_power();
-	
+
 }
 
 void channel_conf::calc_power()
 {
-	
+
 	double read_ratio = memcad_params->rd_2_wr_ratio/(1.0+memcad_params->rd_2_wr_ratio);
 	double write_ratio = 1.0/(1.0+memcad_params->rd_2_wr_ratio);
 	Mem_IO_type current_io_type = memcad_params->io_type;
 	double capacity_ratio = (capacity/(double) memcad_params->capacity );
-	
+
 	double T_BURST = 4; // memory cycles
-	
+
 	energy_per_read = MemoryParameters::io_energy_read[current_io_type][type][num_dimm_per_channel-1][bw_index(current_io_type,bandwidth)];
 	energy_per_read /= (bandwidth/T_BURST);
-	
+
 	energy_per_write = MemoryParameters::io_energy_write[current_io_type][type][num_dimm_per_channel-1][bw_index(current_io_type,bandwidth)];
 	energy_per_write /= (bandwidth/T_BURST);
 	if(memcad_params->capacity_wise)
 	{
-		energy_per_read  *= capacity_ratio; 
-		energy_per_write *= capacity_ratio;			  
+		energy_per_read  *= capacity_ratio;
+		energy_per_write *= capacity_ratio;
 	}
 
 	energy_per_access = read_ratio* energy_per_read + write_ratio*energy_per_write;
-	
+
 }
 
 channel_conf* clone(channel_conf* origin)
@@ -351,7 +351,7 @@ channel_conf* clone(channel_conf* origin)
 	return new_channel;
 }
 
-ostream& operator<<(ostream &os, const channel_conf& ch_cnf) 
+ostream& operator<<(ostream &os, const channel_conf& ch_cnf)
 {
 	os << "cap: " << ch_cnf.capacity << " GB ";
 	os << "bw: " << ch_cnf.bandwidth << " (MHz) ";
@@ -372,11 +372,11 @@ bob_conf::bob_conf(MemCadParameters * memcad_params, vector<channel_conf*> * in_
 :memcad_params(memcad_params),num_channels(0),capacity(0),bandwidth(0)
 ,energy_per_read(0),energy_per_write(0),energy_per_access(0),cost(0),latency(0),valid(true)
 {
-	
+
 	assert(in_channels->size() <= MAX_NUM_CHANNELS_PER_BOB);
 	for(int i=0;i<MAX_NUM_CHANNELS_PER_BOB;i++)
 		channels[i]=0;
-	
+
 	for(unsigned int i=0;i< in_channels->size();++i)
 	{
 		channels[i] = (*in_channels)[i];
@@ -399,7 +399,7 @@ bob_conf* clone(bob_conf* origin)
 			break;
 		temp.push_back(	(origin->channels)[i] );
 	}
-	
+
 	bob_conf * new_bob = new bob_conf(origin->memcad_params,&temp);
 	return new_bob;
 }
@@ -431,7 +431,7 @@ memory_conf::memory_conf(MemCadParameters * memcad_params, vector<bob_conf*> * i
 	assert(in_bobs->size() <= MAX_NUM_BOBS);
 	for(int i=0;i<MAX_NUM_BOBS;i++)
 		bobs[i]=0;
-	
+
 	for(unsigned int i=0;i< in_bobs->size();++i)
 	{
 		bobs[i] = (*in_bobs)[i];
@@ -447,11 +447,11 @@ memory_conf::memory_conf(MemCadParameters * memcad_params, vector<bob_conf*> * i
 
 ostream & operator <<(ostream &os, const memory_conf& mem_cnf)
 {
-	os << "Memory    " ;
-	os << "cap: " << mem_cnf.capacity << " GB ";
-	os << "num_bobs: " << mem_cnf.num_bobs << " ";
-	os << "bw: " << mem_cnf.bandwidth << " (MHz) ";
-	os << "cost: $" << mem_cnf.cost << " ";
+	os << "Memory    " << endl;;
+	os << "cap: " << mem_cnf.capacity << " GB " << endl;;
+	os << "num_bobs: " << mem_cnf.num_bobs << " " << endl;
+	os << "bw: " << mem_cnf.bandwidth << " (MHz) " << endl;;
+	os << "cost: $" << mem_cnf.cost << " " << endl;
 	os << "energy: " << mem_cnf.energy_per_access << " (nJ) ";
 	os << endl;
 	os << " {" << endl;
