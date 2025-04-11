@@ -38,17 +38,16 @@ def print_yaml(yaml_data, level=0):
 
 # Example usage:
 file_path = './rsss_config/cache_dm.out'
+# Replace tabs with spaces in the YAML file
+print(f"Replacing tabs with spaces in the YAML file: {file_path}")
 replace_tabs_in_yaml(file_path)
 
 with open(file_path, 'r') as file:
     content_lst = file.readlines()
 
-# print(f"Content list: {content_lst[88:92]}")
-# print(f"err line: |{content_lst[231]}|")
-# print(f"err char: |{content_lst[231][38:45]}|")
+print(f"Reading YAML file: {file_path}")
 yaml_data = read_yaml_file(file_path)
 
 if yaml_data:
-    # print(yaml_data)
+    print("YAML content:")
     print_yaml(yaml_data)
-
