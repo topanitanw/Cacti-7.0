@@ -324,6 +324,8 @@ bool calculate_time(
         ptr_array->mat_length = uca->bank.mat.area.w;
         ptr_array->subarray_height = uca->bank.mat.subarray.area.h;
         ptr_array->subarray_length = uca->bank.mat.subarray.area.w;
+        ptr_array->nbanks = uca->nbanks;
+        ptr_array->num_mat = uca->bank.mat.num_mats;
         ptr_array->power  = uca->power;
         ptr_array->delay_senseamp_mux_decoder =
             MAX(uca->delay_array_to_sa_mux_lev_1_decoder,

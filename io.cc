@@ -3492,6 +3492,12 @@ void output_UCA(uca_org_t *fr)
         fr->data_array2->subarray_height*1e-3 << endl;
       cout << "\t\tSubarray Length (mm): " <<
         fr->data_array2->subarray_length*1e-3 << endl;
+      cout << "\t\tnbanks: " <<
+        fr->data_array2->nbanks << endl;
+      cout << "\t\tnum_mat: " <<
+        fr->data_array2->num_mat << endl;
+      cout << "\t\tnum_subbank: " <<
+        fr->data_array.number_subbanks << endl;
     }
 
     /* Tag array area stats */
@@ -3514,6 +3520,12 @@ void output_UCA(uca_org_t *fr)
         fr->tag_array2->subarray_height*1e-3 << endl;
       cout << "\t\tSubarray Length (mm): " <<
         fr->tag_array2->subarray_length*1e-3 << endl;
+      cout << "\t\tnbanks: " <<
+        fr->tag_array2->nbanks << endl;
+      cout << "\t\tnum_mat: " <<
+        fr->tag_array2->num_mat << endl;
+      cout << "\t\tnum_subbanks: " <<
+        fr->tag_array.number_subbanks << endl;
       }
     }
 
