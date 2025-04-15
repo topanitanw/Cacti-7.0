@@ -3212,9 +3212,9 @@ void output_UCA(uca_org_t *fr)
     {
         // panitan data array power stats hacked
     	cout << "  Data array:" << endl; 
-        cout << "\tTotal dynamic read energy/access  (nJ): " <<
+        cout << "\tTotal dynamic read energy/access (nJ): " <<
     	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
-        cout << "\tTotal dynamic write energy/access  (nJ): " <<
+        cout << "\tTotal dynamic write energy/access (nJ): " <<
     	      fr->data_array2->power.writeOp.dynamic * 1e9 << endl;
 
     	cout << "\tTotal energy in H-tree (that includes both "
@@ -3298,10 +3298,10 @@ void output_UCA(uca_org_t *fr)
 
 
                 // panitan data array dynamic energy read write
-            	cout <<endl<< "  Total dynamic read energy/access  (nJ): " <<
+            	cout <<endl<< "  Total dynamic read energy/access (nJ): " <<
             	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
 
-            	cout << "  Total dynamic write energy/access  (nJ): " <<
+            	cout << "  Total dynamic write energy/access (nJ): " <<
             	      fr->data_array2->power.writeOp.dynamic * 1e9 << endl;
 
     	        cout << "\tTotal energy in H-tree (that includes both "
@@ -3368,7 +3368,7 @@ void output_UCA(uca_org_t *fr)
 	          	   fr->data_array2->power_output_drivers_at_subarray.searchOp.dynamic * 1e9 << endl;
 
 
-        	cout <<endl<< "  Total dynamic read energy/access  (nJ): " <<
+        	cout <<endl<< "  Total dynamic read energy/access (nJ): " <<
         	      fr->data_array2->power.readOp.dynamic * 1e9 << endl;
 	        cout << "\tTotal energy in H-tree (that includes both "
 	            	      "address and data transfer) (nJ): " <<
